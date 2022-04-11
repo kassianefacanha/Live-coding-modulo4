@@ -1,0 +1,19 @@
+{
+  "name": "live",
+  "version": "1.0.0",
+  "description": "Projeto T15",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "chalk": "^5.0.1",
+    "chalk-web": "^1.0.1",
+    "express": "^4.17.3",
+    "node-fetch": "^3.2.3"
+  }
+}
