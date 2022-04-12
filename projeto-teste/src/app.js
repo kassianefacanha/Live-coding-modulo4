@@ -1,13 +1,11 @@
 import express from 'express'; //importação do modulo
 var app = express(); //instanciei
+const FacilitadorController = require('./controllers/facilitador-controller');
+const AlunoController = require('./controllers/alunoController');
 //verbo http 
 // entidade facilitador e aluno
-app.get('/facilitador', function(req, res) {
-  res.send('aqui é os valores de facilitador')
-})
-app.get('/aluno', function(req, res) {
-  res.send('aqui é os valores de aluno')
-})
+FacilitadorController(app);
+AlunoController(app);
 
 // rodar servidor na porta 
 app.listen(8000,()=>{
