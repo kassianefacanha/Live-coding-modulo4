@@ -1,6 +1,8 @@
 const express = require('express'); //importação do modulo
 var app = express(); //instanciei
 
+//body-parser
+app.use(express.json())
 //Importação dos modulos criados 
 const FacilitadorController = require('./controllers/facilitador-controller')
 const AlunoController = require('./controllers/aluno-controller')

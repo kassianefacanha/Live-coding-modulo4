@@ -4,7 +4,9 @@ module.exports = (app) => {
 
       })
     app.post('/aluno', function(req, res) {
-        res.send('aqui é os valores de aluno para inserir com post nodemon')
-
+      let nome = req.body.nome;
+      let senha = req.body.senha;
+      res.send('O nome do aluno é: ' +nome+ '  e sua senha é: ' + senha);
+      
       })
 }
