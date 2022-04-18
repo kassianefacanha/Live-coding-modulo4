@@ -3,13 +3,19 @@ var app = express(); //instanciei
 
 //body-parser
 app.use(express.json())
+
 //Importação dos modulos criados 
 const FacilitadorController = require('./controllers/facilitador-controller')
 const AlunoController = require('./controllers/aluno-controller')
 
+// const Aluno = require('./models/aluno-model.js')//importando o modelo 
+// const nAluno = new Aluno("Kassiane", "kassi@exemple.com", "123456") //cad 
+// console.log(nAluno)//imprimindo
 
-FacilitadorController(app)
-AlunoController(app)
+const bd = require('./infra/bd')
+
+FacilitadorController(app, bd)
+AlunoController(app, bd)
 
 // rodar servidor na porta 
 app.listen(8000,()=>{
