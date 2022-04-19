@@ -13,7 +13,7 @@ class Tarefa {
         if (statusValidos.indexOf(status) > -1) {
             return status
         } else {
-            throw new Error("O status dever ser igual a: a fazer, feito, fazendo")
+            throw new Error("O status dever ser igual a: FAZER, FEITO, FAZENDO")
         }
     }
 }

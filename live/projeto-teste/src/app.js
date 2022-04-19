@@ -4,19 +4,18 @@ var app = express(); //instanciei
 //body-parser
 app.use(express.json())
 
-
 //Importação dos modulos criados 
 const FacilitadorController = require('./controllers/facilitador-controller')
 const AlunoController = require('./controllers/aluno-controller')
 
-FacilitadorController(app)
-AlunoController(app)
+// const Aluno = require('./models/aluno-model.js')//importando o modelo 
+// const nAluno = new Aluno("Kassiane", "kassi@exemple.com", "123456") //cad 
+// console.log(nAluno)//imprimindo
 
+const bd = require('./infra/bd')
 
-const Aluno = require('./models/aluno-model')
-const novoAluno = new Aluno("Kassiane", "kassi@exm.com", "12345")
-console.log(novoAluno)
-
+FacilitadorController(app, bd)
+AlunoController(app, bd)
 
 // rodar servidor na porta 
 app.listen(8000,()=>{

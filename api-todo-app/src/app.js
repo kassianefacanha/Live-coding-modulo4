@@ -11,7 +11,7 @@ app.use(express.json())
 // app.use((req, res, next) => {
 //     console.log("Rodei o middleware")
 //     console.log(req.body)
-//     next()
+//     next() 
 // })
 
 // const Usuario = require('./models/usuario-models')

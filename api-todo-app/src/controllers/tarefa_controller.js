@@ -5,8 +5,6 @@ const tarefa = (app, bd) => {
         res.json({ "tarefas": bd.tarefa})
       })
      app.post('/tarefa', (req, res) => {
-        // Usar o try-catch para pegar o erro, caso a validacao
-        // do model de erro, ou outro erro apareça
         try {
             const body = req.body
                 //Importante validar os campos com o model
@@ -15,7 +13,6 @@ const tarefa = (app, bd) => {
             //Logica de inserção da entidade no bd
             bd.tarefa.push(novaTarefa)
             console.log(bd.tarefa)
-                // --------------------------
 
             // Resposta para o cliente
             res.json({

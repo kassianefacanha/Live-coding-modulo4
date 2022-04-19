@@ -5,8 +5,6 @@ const usuario = (app, bd)=>{
           res.json({"usuario": bd.usuario})
       })
       app.post('/usuario', (req, res) => {
-        // Usar o try-catch para pegar o erro, caso a validacao
-        // do model de erro, ou outro erro apareça
         try {
             const body = req.body
             const novoUsuario = new Usuario(body.nome, body.email, body.senha)
@@ -14,7 +12,6 @@ const usuario = (app, bd)=>{
             //Logica de inserção da entidade no bd
             bd.usuario.push(novoUsuario)
             console.log(bd.usuario)
-                //--------------------------------
 
             // Resposta para o cliente
             res.json({
@@ -23,7 +20,7 @@ const usuario = (app, bd)=>{
                 "erro": false
             })
         } catch (error) {
-            // Resposta em caso de erro
+        // Resposta em caso de erro
             res.json({
                 "mensager": error.message,
                 "erro": true
