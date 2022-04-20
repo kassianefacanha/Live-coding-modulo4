@@ -15,6 +15,25 @@ const aluno = (app) => {
     app.get('/aluno', function(req, res) {
       res.json({"alunos": bd.aluno})
     })
+
+
+    app.get('/aluno/:nome/:idade', function(req, res) {
+      res.json({"Aluno ": req.params.nome,
+      "Idade ": req.params.idade})
+    })
+
+    app.delete('/aluno/:nome', function(req, res){
+      const nomeParametro = req.params.nome;
+      const indexAluno = bd.aluno.findIndex(aluno=>aluno.nome == nomeParametro)
+
+      if(indexAluno > -1){
+        const alunoDeletado = bd.aluno.splice(indexAluno, 1)
+        res.json({"Aluno": alunoDeletado})
+      }else{
+        res.json("Aluno não encontrado")
+      }
+
+    })
 }
 
 module.exports = aluno;
