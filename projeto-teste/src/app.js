@@ -5,7 +5,7 @@ var app = express(); //instanciei
 const FacilitadorController = require('./controllers/facilitador-controller')
 const AlunoController = require('./controllers/aluno-controller')
 
-//body-parser
+// //body-parser
 app.use(express.json())
 
 FacilitadorController(app)
