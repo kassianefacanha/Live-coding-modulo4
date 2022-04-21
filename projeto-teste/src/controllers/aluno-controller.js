@@ -1,4 +1,3 @@
-const { copyFileSync } = require('fs')
 const bd = require('../infra/bd') //
 const Aluno = require('../models/aluno-model')
 
@@ -20,6 +19,30 @@ const aluno = (app) => {
           res.send(bd.aluno[i])//enviando o resultado da comparação
         }
       }
+    })
+
+    app.put('/aluno/:nome', function(req, res) {
+      const nome = req.params.nome
+      const body = req.body;
+      const indexAluno = bd.aluno.findIndex(aluno => aluno.nome == nome) // ACHA O INDEX 
+
+      if(indexAluno > -1){
+        const DadoAlunoAntigo = bd.aluno[indexAluno] //dado q tá no banco
+        const DadoAlunoNovo = new Aluno(
+          body.nome || DadoAlunoAntigo.nome,
+          body.email || DadoAlunoAntigo.email,
+          body.senha || DadoAlunoAntigo.senha,
+          DadoAlunoAntigo.id
+          ) // modelo
+          const NovoDado = bd.aluno.splice(indexAluno, 1, DadoAlunoNovo) // Alteração
+
+        res.json({"Aluno": DadoAlunoNovo,
+                   "alunodeletado": NovoDado})
+      }else{
+        res.json("ALUNO NÃO ENCONTRADO")
+      }
+
+
     })
 
     app.delete('/aluno/:nome', function(req, res) {

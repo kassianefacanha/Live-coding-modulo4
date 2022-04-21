@@ -38,6 +38,31 @@ const usuario = (app, bd)=>{
                 }
             }
         })
+        app.put('/usuario/:email', (req, res) => {
+        const email = req.params.email
+        const body = req.body
+        const indexUsuario = bd.usuario.findIndex((usuario => usuario.email === email))
+
+        try {
+            if (indexUsuario > -1) {
+                const usuarioAntigo = bd.usuario[indexUsuario]
+                const usuarioAtualizado = new Usuario(
+                    body.nome || usuarioAntigo.nome,
+                    body.email || usuarioAntigo.email,
+                    body.senha || usuarioAntigo.senha,
+                    usuarioAntigo.id,
+                )
+
+                res.json({"atualizado": usuarioAtualizado,
+    
+                })
+            } else {
+                res.json({"mensagem": `Usuário com email "${email}" não existe`,})
+            }
+        } catch (error) {
+            res.json({ "mensagem": error.message,})
+        }
+    })
         app.delete('/usuario/:email', (req, res)=> {
                 const email = req.params.email
                 const indexUsuario = bd.usuario.findIndex((usuario=>usuario.email===email))
@@ -56,5 +81,4 @@ const usuario = (app, bd)=>{
     })
 
 }
-
-module.exports = usuario;
+module.exports = usuario
