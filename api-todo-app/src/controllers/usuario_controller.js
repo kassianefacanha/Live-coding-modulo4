@@ -2,7 +2,7 @@ const Usuario = require('../models/usuario-models')
 
 const usuario = (app, bd)=>{
       app.get('/usuario', (req, res) => {
-          res.json({"usuario": bd.usuario})
+        res.json({ "tarefas": bd.tarefa})
       })
       app.post('/usuario', (req, res) => {
         try {
@@ -52,10 +52,8 @@ const usuario = (app, bd)=>{
                     body.senha || usuarioAntigo.senha,
                     usuarioAntigo.id,
                 )
-
-                res.json({"atualizado": usuarioAtualizado,
-    
-                })
+                const DadoUsuarioAtualizado = bd.usuario.splice(indexUsuario, 1, usuarioAtualizado)
+                res.json({"atualizado": DadoUsuarioAtualizado,})
             } else {
                 res.json({"mensagem": `Usuário com email "${email}" não existe`,})
             }

@@ -1,17 +1,15 @@
 {
-  "name": "revisao",
+  "name": "api-todo-tutorial",
   "version": "1.0.0",
   "description": "",
-  "main": "main.js",
+  "main": "index.js",
   "scripts": {
-    "start": "nodemon ./src/app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon ./src/index.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "chalk": "^5.0.1",
     "express": "^4.17.3",
     "sqlite3": "^5.0.5"
   },
