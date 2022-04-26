@@ -2,7 +2,7 @@ const express = require('express') // importação express
 const app = express() // instanciou express dentro de app
 const port = 3000
 
-const bd = require('./infra/bd')
+const bdSqlite = require('./infra/sqlite-db')
 
 const tarefa= require('./controllers/tarefa_controller')
 const usuario = require('./controllers/usuario_controller')
@@ -18,8 +18,8 @@ app.use(express.json())
 // const novoUser = new Usuario("Jean", "jean@email.com", "123456")
 // console.log(novoUser)
 
-tarefa(app,bd)
-usuario(app,bd)
+tarefa(app,bdSqlite)
+usuario(app,bdSqlite)
 
 
 app.listen(port, () => {

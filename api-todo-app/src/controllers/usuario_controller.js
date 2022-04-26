@@ -1,26 +1,35 @@
+
+const bd = require('../infra/sqlite-db')
 const Usuario = require('../models/usuario-models')
 
-const usuario = (app, bd)=>{
+const usuario = (app,bdSqlite)=>{
+
       app.get('/usuario', (req, res) => {
-        res.json({ "tarefas": bd.tarefa})
+        bdSqlite.all(`SELECT * FROM USUARIOS`, (error, rows) => {
+            if(error){
+              res.json("ERRO AO SELECIONAR BANCO")
+            }else {
+              res.json({"banco selecionado": rows})
+            }
+          })
       })
       app.post('/usuario', (req, res) => {
-        try {
+        //pegar body e inserir as informações
+    
             const body = req.body
-            const novoUsuario = new Usuario(body.nome, body.email, body.senha)
-            bd.usuario.push(novoUsuario)
-            console.log(bd.usuario)
-
-            res.json({
-                "requisicao": novoUsuario,
-                "meubanco": bd.usuario,
+            const NovoUsuario = new Usuario(body.nome,body.email, body.senha)
+            bdSqlite.run(`INSERT INTO USUARIOS (NOME, EMAIL, SENHA) VALUES (?,?,?)`, 
+            [NovoUsuario.nome, NovoUsuario.email, NovoUsuario.senha],
+            (error)=>{
+                if(error){
+                    res.json(error)
+                }else{
+                    res.json("DEU CERTO INSERIR")
+                }
             })
-        } catch (error) {
 
-            res.json({
-                "menssage": error.message,
-            })
-        }
+
+        })
         app.get('/usuario/:nome', (req, res) => {
             const nome = req.params.nome
             res.json({
@@ -32,8 +41,8 @@ const usuario = (app, bd)=>{
     
         app.get('/usuario/:email', (req, res) => {
             const email = req.params.email
-            for (let i = 0; i <= bd.length; i++) {
-                if (bd[i].email == email) {
+            for (let i = 0; i <= bdSqliteSqlite.length; i++) {
+                if (bdSqliteSqlite[i].email == email) {
                     return `o email encontrado e ${email}`
                 }
             }
@@ -41,18 +50,18 @@ const usuario = (app, bd)=>{
         app.put('/usuario/:email', (req, res) => {
         const email = req.params.email
         const body = req.body
-        const indexUsuario = bd.usuario.findIndex((usuario => usuario.email === email))
+        const indexUsuario = bdSqliteSqlite.usuario.findIndex((usuario => usuario.email === email))
 
         try {
             if (indexUsuario > -1) {
-                const usuarioAntigo = bd.usuario[indexUsuario]
+                const usuarioAntigo = bdSqliteSqlite.usuario[indexUsuario]
                 const usuarioAtualizado = new Usuario(
                     body.nome || usuarioAntigo.nome,
                     body.email || usuarioAntigo.email,
                     body.senha || usuarioAntigo.senha,
                     usuarioAntigo.id,
                 )
-                const DadoUsuarioAtualizado = bd.usuario.splice(indexUsuario, 1, usuarioAtualizado)
+                const DadoUsuarioAtualizado = bdSqliteSqlite.usuario.splice(indexUsuario, 1, usuarioAtualizado)
                 res.json({"atualizado": DadoUsuarioAtualizado,})
             } else {
                 res.json({"mensagem": `Usuário com email "${email}" não existe`,})
@@ -63,10 +72,10 @@ const usuario = (app, bd)=>{
     })
         app.delete('/usuario/:email', (req, res)=> {
                 const email = req.params.email
-                const indexUsuario = bd.usuario.findIndex((usuario=>usuario.email===email))
+                const indexUsuario = bdSqliteSqlite.usuario.findIndex((usuario=>usuario.email===email))
         
                 if(indexUsuario > -1){
-                    const usuarioDeletado = bd.usuario.splice(indexUsuario, 1)
+                    const usuarioDeletado = bdSqliteSqlite.usuario.splice(indexUsuario, 1)
                     res.json({ "deletado": usuarioDeletado, })
                 } else {
                     res.json({
@@ -75,8 +84,6 @@ const usuario = (app, bd)=>{
                 }
         })
         
+    }
 
-    })
-
-}
 module.exports = usuario

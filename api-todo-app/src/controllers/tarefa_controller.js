@@ -2,7 +2,13 @@ const Tarefa = require('../models/tarefa-models')
 
 const tarefa = (app, bd) => {
       app.get('/tarefa', (req, res) => {
-        res.json({ "tarefas": bd.tarefa})
+         bd.all(`SELECT * FROM USUARIOS`, (error, rows) => {
+      if(error){
+        res.json("ERRO AO SELECIONAR BANCO")
+      }else {
+        res.json({"banco selecionado": rows})
+      }
+    })
       })
      app.post('/tarefa', (req, res) => {
         try {

@@ -5,7 +5,7 @@
   "main": "main.js",
   "scripts": {
     "start": "nodemon ./src/app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "keywords": [],
   "author": "",
@@ -16,6 +16,7 @@
     "sqlite3": "^5.0.5"
   },
   "devDependencies": {
+    "jest": "^28.0.1",
     "nodemon": "^2.0.15"
   }
 }

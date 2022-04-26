@@ -4,16 +4,20 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "test": "jest",
     "start": "nodemon ./src/index.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "calculadora": "^1.0.1",
     "express": "^4.17.3",
     "sqlite3": "^5.0.5"
   },
   "devDependencies": {
-    "nodemon": "^2.0.15"
+    "jest": "^28.0.1",
+    "nodemon": "^2.0.15",
+    "supertest": "^6.2.2"
   }
 }

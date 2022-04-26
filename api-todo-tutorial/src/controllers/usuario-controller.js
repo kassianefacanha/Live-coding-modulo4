@@ -1,32 +1,41 @@
 const Usuario = require('../models/usuario-model')
+const UsuarioDao = require('../DAO/usuario-dao')
 
 const usuario = (app, bd)=>{
+
+const novoUsuarioDAO = new UsuarioDao(bd)
 // CREATE DO CRUD E INSERIR REGISTROS
 app.post('/usuario', (req, res) => {
-    // pegar informações e armazenar em algum lugar 
-    // corpo da requisão
-  try {
+        // Usar o try-catch para pegar o erro, caso a validacao
+        // do model de erro, ou outro erro apareça
+        try {
+          const body = req.body
+          const novoUsuario = new Usuario(body.nome, body.email, body.senha)
 
-    const body = req.body
-    const NovoUsuario = new Usuario(body.nome,body.email, body.senha)
-    bd.usuario.push(NovoUsuario)
-    res.json({"NovoUsuario": NovoUsuario})
+          //Logica de inserção da entidade no bd
+          novoUsuarioDAO.insereUsuario(novoUsuario)
+          .then((resposta)=>{
+              res.json(resposta)
+          })
+      } catch (error) {
+          // Resposta em caso de erro
+          res.json({
+              "mensagem" : error.message,
+              "erro" : true 
+          })
+      }
 
-  }catch (error) {
-    res.json({"message": error.message})
-  }
-   
 
   }) 
 // READ DO CRUD E EXIBI REGISTROS
 app.get('/usuario', (req, res) => {
-    bd.all(`SELECT * FROM USUARIOS`, (error, rows) => {
-      if(error){
-        res.json("ERRO AO SELECIONAR BANCO")
-      }else {
-        res.json({"banco selecionado": rows})
-      }
+    novoUsuarioDAO.listarUsuarios()
+    .then((resposta)=>{
+        res.json(resposta)
     })
+    .catch((erro)=>{
+        res.json(erro)
+    }) 
   })
 
 // READ DO CRUD E EXIBI REGISTROS
