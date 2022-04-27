@@ -31,7 +31,7 @@ app.post('/usuario', (req, res) => {
 app.get('/usuario', (req, res) => {
     novoUsuarioDAO.listarUsuarios()
     .then((resposta)=>{
-        res.json(resposta)
+        res.status(200).json(resposta)
     })
     .catch((erro)=>{
         res.json(erro)

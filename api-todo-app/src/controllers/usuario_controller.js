@@ -1,17 +1,20 @@
 
 const bd = require('../infra/sqlite-db')
 const Usuario = require('../models/usuario-models')
+const UsuarioDAO = require('../DAO/usuario-dao')
 
 const usuario = (app,bdSqlite)=>{
 
+const InstUsuarioDao = new UsuarioDAO(bdSqlite)
+
+
       app.get('/usuario', (req, res) => {
-        bdSqlite.all(`SELECT * FROM USUARIOS`, (error, rows) => {
-            if(error){
-              res.json("ERRO AO SELECIONAR BANCO")
-            }else {
-              res.json({"banco selecionado": rows})
-            }
-          })
+        InstUsuarioDao.listarUsuarios()
+        .then((resposta)=>{
+            res.json(resposta)
+        }).catch((error)=>{
+            res.json(error)
+        })
       })
       app.post('/usuario', (req, res) => {
         //pegar body e inserir as informações
