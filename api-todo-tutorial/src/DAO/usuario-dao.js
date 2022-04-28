@@ -7,16 +7,9 @@ class UsuarioDAO{
         return new Promise((resolve, reject)=>{
             this.bd.all('SELECT * FROM USUARIOS', (error, rows)=>{
                 if(error){
-                    reject({
-                        "mensagem" : error.message,
-                        "error" : true
-                    }) 
+                    reject({ "ERRO" : error.message }) 
                 } else{
-                    resolve({
-                        "usuarios" : rows,
-                        "count": rows.length,
-                        "error" : false
-                    })
+                    resolve({"usuarios" : rows, "count": rows.length})
                 }
             })
         })  
@@ -27,21 +20,31 @@ class UsuarioDAO{
             this.bd.run(`INSERT INTO USUARIOS ( NOME, EMAIL, SENHA) VALUES (?,?,?)`,
             [novoUsuario.nome, novoUsuario.email, novoUsuario.senha], 
             (error)=>{
-                if(error){
-                    reject({
-                        "mensagem" : error.message,
-                        "erro" : true 
-                    })
+                if (error) {
+                    console.log('reject');
+                    reject('Usuário não pôde ser inserido')
                 } else {
-                    resolve({
-                        "requisicao" : novoUsuario,
-                        "erro" : false 
-                    })
+                    console.log('resolve');
+                    resolve('Usuário inserido com sucesso')
                 }
             })
         })
     }
 
+    deletaUsuario(id) {
+        return new Promise((resolve, reject) => {
+            this.bd.run(`DELETE FROM USUARIOS WHERE ID=${id}`,
+            (err) => {
+                if(err) {
+                    reject(err)
+                } else {
+                    resolve('Usuário deletado com sucesso')
+                }
+            })
+        })
+    }
 }
+
+
 
 module.exports = UsuarioDAO 

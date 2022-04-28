@@ -15,6 +15,22 @@ class UsuarioDAO {
         })
     }
 
+    insereUsuario(DadosNovoUsuario){
+        return new Promise((resolve, reject) => {
+            this.bd.run(`INSERT INTO USUARIOS (NOME, EMAIL, SENHA) VALUES (?,?,?)`, 
+            [DadosNovoUsuario.nome, DadosNovoUsuario.email, DadosNovoUsuario.senha],
+            (error)=>{
+                if(error){
+                    reject(error)
+                }else{
+                   resolve("DEU CERTO INSERIR")
+                }
+            })
+        })
+       
+
+    }
+
 
 }
 

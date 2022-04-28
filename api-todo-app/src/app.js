@@ -27,9 +27,6 @@ app.use(express.json())
 //     next() 
 // })
 
-// const Usuario = require('./models/usuario-models')
-// const novoUser = new Usuario("Jean", "jean@email.com", "123456")
-// console.log(novoUser)
 
 tarefa(app,bdSqlite)
 usuario(app,bdSqlite)

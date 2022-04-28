@@ -6,31 +6,29 @@ const UsuarioDAO = require('../DAO/usuario-dao')
 const usuario = (app,bdSqlite)=>{
 
 const InstUsuarioDao = new UsuarioDAO(bdSqlite)
-
-
-      app.get('/usuario', (req, res) => {
-        InstUsuarioDao.listarUsuarios()
-        .then((resposta)=>{
-            res.json(resposta)
-        }).catch((error)=>{
-            res.json(error)
-        })
+      app.get('/usuario',(req, res) => {
+        const data = async() => {
+            try{
+                const usuarios = await InstUsuarioDao.listarUsuarios()
+                res.send(usuarios)
+            }catch(err){
+                res.send(err)
+            }
+    
+        }
+        
+        data()
       })
       app.post('/usuario', (req, res) => {
         //pegar body e inserir as informações
-    
             const body = req.body
             const NovoUsuario = new Usuario(body.nome,body.email, body.senha)
-            bdSqlite.run(`INSERT INTO USUARIOS (NOME, EMAIL, SENHA) VALUES (?,?,?)`, 
-            [NovoUsuario.nome, NovoUsuario.email, NovoUsuario.senha],
-            (error)=>{
-                if(error){
-                    res.json(error)
-                }else{
-                    res.json("DEU CERTO INSERIR")
-                }
+            InstUsuarioDao.insereUsuario(NovoUsuario)
+            .then((resposta) =>{
+                res.status(200).json(resposta)
+            }).catch((error)=>{
+                res.json(error)
             })
-
 
         })
         app.get('/usuario/:nome', (req, res) => {
