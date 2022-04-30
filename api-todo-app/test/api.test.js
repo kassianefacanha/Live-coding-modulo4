@@ -1,5 +1,5 @@
 const request = require('supertest')
-const ApiUrl = "http://localhost:3000/"
+const ApiUrl = "http://localhost:3000"
 
 describe('Teste rota',()=>{
     test('ROTA USERS',()=>{

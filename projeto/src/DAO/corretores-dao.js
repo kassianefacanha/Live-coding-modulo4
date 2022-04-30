@@ -4,7 +4,7 @@ class CorretoresDAO{
     }
 
     listarCorretores(){
-      return new Promise(function(resolve,reject){
+      return new Promise((resolve,reject)=>{
           this.bd.all(`SELECT * FROM CORRETORES`, (error, result)=>{
             if(error){
                reject(error);
@@ -16,7 +16,7 @@ class CorretoresDAO{
     }
 
     insereCorretores(novoCorretores){
-        return new Promise(function(resolve,reject){
+        return new Promise((resolve,reject)=>{
             this.bd.run(`INSERT INTO CORRETORES (NOME, EMAIL, SENHA) VALUES (?,?,?)`, 
             [novoCorretores.nome, novoCorretores.email, novoCorretores.senha],
             (error)=>{

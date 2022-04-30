@@ -3,12 +3,20 @@ const app = express();
 
 const fetch = require('node-fetch');
 
+
 app.get('/', (req, res) => {
     // https://gorest.co.in/public/v2/users
-    fetch("http://localhost:3000/usuario")
-                    .then((response) => {
-                        return response.json()
-                    }).then((data) => {console.log(data)})
+    fetch("https://www2.camara.leg.br/transparencia/dados-abertos/dados-abertos-legislativo",{
+            method: 'GET',
+            headers: {
+            'Content-Type': 'text/xml',
+            'User-Agent': '*'
+            }
+            }).then(res => res.text()).then(function(xml) {
+            let json_result = xml_to_js.xml2json(xml, {compact: true, spaces: 4});
+            return json_result
+        })
+    
     res.send("deu certo")
 })
 app.listen(8000,()=>{

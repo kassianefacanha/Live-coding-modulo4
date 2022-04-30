@@ -14,6 +14,17 @@ class UsuarioDAO{
             })
         })  
     }
+    listarUsuariosID(id){
+        return new Promise((resolve, reject)=>{
+            this.bd.all('SELECT * FROM USUARIOS  WHERE id = ?',[id], (error, rows)=>{
+                if(error){
+                    reject({ "ERRO" : error.message }) 
+                } else{
+                    resolve({"usuarios" : rows})
+                }
+            })
+        })  
+    }
 
     insereUsuario(novoUsuario){
         return new Promise((resolve, reject)=>{
@@ -30,7 +41,14 @@ class UsuarioDAO{
             })
         })
     }
-
+    alterarUsuario(UsuarioAtualizado){
+        return new Promise((resolve, reject) => {
+            this.bd.run('UPDATE USUARIOS SET NOME = ?, EMAIL = ?, SENHA = ? WHERE id = ?', UsuarioAtualizado, (erro, linhas)=>{
+                if(erro) reject('Não foi possível atualizar o usuário');
+                else resolve('Usuário atualizado');           
+            });
+        })
+    }
     deletaUsuario(id) {
         return new Promise((resolve, reject) => {
             this.bd.run(`DELETE FROM USUARIOS WHERE ID=${id}`,

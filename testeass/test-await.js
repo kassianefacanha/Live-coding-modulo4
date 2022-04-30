@@ -1,7 +1,7 @@
 async function teste() {
 
     let promise = new Promise((resolve, reject) => {
-      setTimeout(() => resolve("done!"), 6000)
+      setTimeout(() => resolve("done!"), 10000)
     });
   
     let result = await promise; 

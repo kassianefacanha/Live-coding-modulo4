@@ -10,7 +10,7 @@ const InstUsuarioDao = new UsuarioDAO(bdSqlite)
         const data = async() => {
             try{
                 const usuarios = await InstUsuarioDao.listarUsuarios()
-                res.send(usuarios)
+                res.status(200).send(usuarios)
             }catch(err){
                 res.send(err)
             }

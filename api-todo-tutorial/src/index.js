@@ -4,7 +4,7 @@
 
 const express = require('express');
 const app = express();
-const cors = require('cors');
+// const cors = require('cors');
 //IMPORTANDO banco
 const bd =  require('./infra/sqlite-db');
 
@@ -13,7 +13,7 @@ const bd =  require('./infra/sqlite-db');
 const Usuario = require('./controllers/usuario-controller')
 const Tarefa = require('./controllers/tarefa-controller')
 
-app.use(cors())
+// app.use(cors())
 
 app.use(express.json())
 
