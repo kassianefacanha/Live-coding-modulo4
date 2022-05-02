@@ -1,21 +1,15 @@
 const express = require('express'); //importação do modulo
 var app = express(); //instanciei
 
-//body-parser
-app.use(express.json())
-
 //Importação dos modulos criados 
 const FacilitadorController = require('./controllers/facilitador-controller')
 const AlunoController = require('./controllers/aluno-controller')
 
-// const Aluno = require('./models/aluno-model.js')//importando o modelo 
-// const nAluno = new Aluno("Kassiane", "kassi@exemple.com", "123456") //cad 
-// console.log(nAluno)//imprimindo
+// //body-parser
+app.use(express.json())
 
-const bd = require('./infra/bd')
-
-FacilitadorController(app, bd)
-AlunoController(app, bd)
+FacilitadorController(app)
+AlunoController(app)
 
 // rodar servidor na porta 
 app.listen(8000,()=>{
@@ -24,3 +18,7 @@ app.listen(8000,()=>{
 
 // npm install nodemon --save-dev (LOCALMENTE) Execultando com script
 // npm install nodemon -g (GLOBALMENTE) Execulta no terminal
+
+// const Aluno = require('./models/aluno-model')
+// const novoAluno = new Aluno("Kassiane", "kassi@exm.com", "12345")
+// console.log(novoAluno)

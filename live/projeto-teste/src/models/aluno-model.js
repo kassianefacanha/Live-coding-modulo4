@@ -1,4 +1,4 @@
-var id = 0;
+let id = 0;
 
 class Aluno{
     constructor(nome, email, senha){
@@ -6,16 +6,14 @@ class Aluno{
         this.nome = nome;
         this.email = email;
         this.senha = this.validarsenha(senha);
-
     }
     validarsenha(senha){
-        if(senha.length<=5){
+        if(senha.length <= 5){
             return senha;
         }else{
-            throw new Error("Senha deve ter até 5 caracteres")
+            throw new Error("Senha deve ter 5 caracteres")
         }
     }
-
 }
 
 module.exports = Aluno;
