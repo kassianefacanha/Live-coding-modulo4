@@ -11,6 +11,7 @@ const pessoa = (app,bd)=>{
         const PessoaDado = new Pessoa(body.nome, body.email, body.senha)
         const data = async() => {
             try {
+                
                 const pessoas =  await DAOPessoa.inserePessoas(PessoaDado)
                 res.send(pessoas)
             }catch(err) {
@@ -51,9 +52,13 @@ const pessoa = (app,bd)=>{
     app.put('/pessoa/:id', (req, res) => {
         const body = req.body;
         const id = req.params.id
-        const parametros = [body.nome, body.email, body.senha, id]
         const data = async() => {
             try {
+                const pessoasDado = await DAOPessoa.listarPessoasID(id);
+                const PessoaDado = new Pessoa(body.nome || pessoasDado[0].NOME, 
+                    body.email || pessoasDado[0].EMAIL, 
+                    body.senha || pessoasDado[0].SENHA)
+                 const parametros = [PessoaDado.nome, PessoaDado.email, PessoaDado.senha, id]
                 const pessoas =  await DAOPessoa.alterePessoas(parametros)
                 res.send(pessoas)
             }catch(err) {
